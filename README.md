@@ -1,6 +1,6 @@
 
 # Tic-Tac-Toe
-The below problems are to allow us a glimpse into your problem solving ability, style and current skill set. We expect this test to take 2-3 hours, if you find yourself spending more than this do not aim to solve all 3 problems!
+The below problems are to allow us a glimpse into your problem solving ability, style and current skill set. Vibe coding is allowed but we are looking for good taste, brevity and clarity in your code. 
 
 ## Problems
 ### Problem 1
