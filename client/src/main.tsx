@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { XorO } from './types';
+import { PlayerStats, XorO } from './types';
 import { getWinner, isDraw, emptyBoard, playMove } from './utils';
 
 const CELL_SIZES: [number, string][] = [
@@ -16,13 +16,6 @@ const getStatusMessage = (
   draw: boolean,
   player: XorO,
 ) => (winner ? `${winner} wins!` : draw ? "It's a draw!" : `${player}'s turn`);
-
-interface PlayerStats {
-  name: string;
-  wins: number;
-  losses: number;
-  draws: number;
-}
 
 const PLAYER_NAMES: Record<XorO, string> = { X: 'Player X', O: 'Player O' };
 
