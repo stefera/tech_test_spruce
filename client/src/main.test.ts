@@ -1,4 +1,10 @@
-import { getWinner, isDraw, emptyBoard, playMove } from './utils';
+import {
+  getWinner,
+  isDraw,
+  emptyBoard,
+  playMove,
+  getWinningLines,
+} from './utils';
 import { Board } from './types';
 
 describe('emptyBoard', () => {
@@ -8,6 +14,46 @@ describe('emptyBoard', () => {
     board.forEach((row) => {
       expect(row).toHaveLength(3);
       row.forEach((cell) => expect(cell).toBeUndefined());
+    });
+  });
+
+  it('creates a 5x5 board of undefined values', () => {
+    const board = emptyBoard(5);
+    expect(board).toHaveLength(5);
+    board.forEach((row) => {
+      expect(row).toHaveLength(5);
+      row.forEach((cell) => expect(cell).toBeUndefined());
+    });
+  });
+
+  it('creates a 15x15 board of undefined values', () => {
+    const board = emptyBoard(15);
+    expect(board).toHaveLength(15);
+    board.forEach((row) => {
+      expect(row).toHaveLength(15);
+      row.forEach((cell) => expect(cell).toBeUndefined());
+    });
+  });
+});
+
+describe('getWinningLines', () => {
+  it('generates correct number of lines for size 3', () => {
+    const lines = getWinningLines(3);
+    // 3 rows + 3 columns + 2 diagonals = 8
+    expect(lines).toHaveLength(8);
+  });
+
+  it('generates correct number of lines for size 5', () => {
+    const lines = getWinningLines(5);
+    // 5 rows + 5 columns + 2 diagonals = 12
+    expect(lines).toHaveLength(12);
+  });
+
+  it('each line has length equal to the board size', () => {
+    const size = 4;
+    const lines = getWinningLines(size);
+    lines.forEach((line) => {
+      expect(line).toHaveLength(size);
     });
   });
 });
@@ -73,6 +119,30 @@ describe('getWinner', () => {
       [undefined, 'X', undefined],
       [undefined, undefined, undefined],
     ];
+    expect(getWinner(board)).toBeUndefined();
+  });
+
+  it('detects a row win on a 5x5 board', () => {
+    const board = emptyBoard(5);
+    for (let c = 0; c < 5; c++) {
+      board[0][c] = 'X';
+    }
+    expect(getWinner(board)).toBe('X');
+  });
+
+  it('detects a diagonal win on a 4x4 board', () => {
+    const board = emptyBoard(4);
+    for (let i = 0; i < 4; i++) {
+      board[i][i] = 'O';
+    }
+    expect(getWinner(board)).toBe('O');
+  });
+
+  it('returns undefined for an incomplete row on a 5x5 board', () => {
+    const board = emptyBoard(5);
+    for (let c = 0; c < 4; c++) {
+      board[0][c] = 'X';
+    }
     expect(getWinner(board)).toBeUndefined();
   });
 });
